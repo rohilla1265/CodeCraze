@@ -24,7 +24,7 @@ const app = express();
 const server = http.createServer(app);
 
 const PORT = process.env.PORT || 4000;
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173"||'https://syntax-code.onrender.com';
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
 
 // 1. Unified CORS Configuration (Sync Express & Socket.IO)
 const corsOptions = {
