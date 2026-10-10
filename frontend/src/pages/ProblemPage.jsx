@@ -1294,50 +1294,80 @@ const ProblemPage = () => {
 
           <div className="flex-1 overflow-y-auto p-5 custom-scrollbar space-y-5">
             {problem && activeLeftTab === 'description' && (
-              <>
-                <div className="flex justify-between items-center bg-[#181f2e] border border-slate-700/40 p-4 rounded-2xl shadow-inner">
-                  <h1 className="text-lg font-bold text-white tracking-wide">{problem.title}</h1>
-                  <span className={`text-[11px] font-bold px-3 py-1 rounded-full border uppercase ${
-                    problem.difficulty?.toLowerCase() === 'easy' ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30' :
-                    problem.difficulty?.toLowerCase() === 'medium' ? 'bg-amber-500/15 text-amber-400 border-amber-500/30' :
-                    'bg-rose-500/15 text-rose-400 border-rose-500/30'
-                  }`}>
-                    {problem.difficulty || 'Easy'}
-                  </span>
-                </div>
+  <>
+    {/* Header Section */}
+    <div className="flex justify-between items-center bg-gradient-to-r from-[#1a2130] to-[#0d111a] border border-slate-700/40 p-5 rounded-2xl shadow-lg">
+      <h1 className="text-xl font-extrabold text-white tracking-tight">
+        {problem.title}
+      </h1>
+      <div className="flex items-center gap-3">
+        <span
+          className={`text-[11px] font-bold px-3 py-1 rounded-full border uppercase tracking-wide ${
+            problem.difficulty?.toLowerCase() === "easy"
+              ? "bg-emerald-500/15 text-emerald-400 border-emerald-500/30"
+              : problem.difficulty?.toLowerCase() === "medium"
+              ? "bg-amber-500/15 text-amber-400 border-amber-500/30"
+              : "bg-rose-500/15 text-rose-400 border-rose-500/30"
+          }`}
+        >
+          {problem.difficulty || "Easy"}
+        </span>
+        <span className="text-sm font-semibold text-indigo-400 bg-indigo-500/10 px-3 py-1 rounded-lg border border-indigo-500/30">
+          {problem.points} pts
+        </span>
+      </div>
+    </div>
 
-                <div className="text-xs text-slate-300 leading-relaxed whitespace-pre-line bg-[#0d111a]/80 p-4 rounded-2xl border border-slate-800/80">
-                  {problem.description}
-                </div>
+    {/* Problem Description */}
+    <div className="text-sm text-slate-300 leading-relaxed whitespace-pre-line bg-[#0d111a]/90 p-6 rounded-2xl border border-slate-800/80 shadow-inner mt-4">
+      {problem.description}
+    </div>
 
-                {problem.visibleTestcases && problem.visibleTestcases.length > 0 && (
-                  <div className="space-y-3">
-                    <h3 className="text-xs font-bold text-slate-300 tracking-wider">EXAMPLES</h3>
-                    {problem.visibleTestcases.map((example, idx) => (
-                      <div key={idx} className="bg-[#0d111a] border border-slate-800/80 rounded-2xl p-3.5 font-mono text-xs space-y-1.5 shadow-md">
-                        <div><span className="text-indigo-400 font-bold">Input:</span> <span className="text-slate-300">{example.input}</span></div>
-                        <div><span className="text-emerald-400 font-bold">Output:</span> <span className="text-slate-300">{example.output}</span></div>
-                        {example.explaination && (
-                          <div className="text-[11px] text-slate-500 pt-1 border-t border-slate-800/60">
-                            Explanation: {example.explaination}
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {problem.tags && (
-                  <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-800/60">
-                    {problem.tags.split(',').map((tag) => (
-                      <span key={tag} className="text-[11px] font-medium px-3 py-1 rounded-xl bg-[#1a2130] text-slate-300 border border-slate-700/50">
-                        {tag.trim()}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </>
+    {/* Examples Section */}
+    {problem.visibleTestcases && problem.visibleTestcases.length > 0 && (
+      <div className="space-y-4 mt-6">
+        <h3 className="text-xs font-bold text-indigo-400 tracking-wider uppercase">
+          Examples
+        </h3>
+        {problem.visibleTestcases.map((example, idx) => (
+          <div
+            key={idx}
+            className="bg-[#0d111a] border border-slate-800/80 rounded-2xl p-4 font-mono text-xs space-y-2 shadow-md hover:shadow-lg transition-shadow"
+          >
+            <div>
+              <span className="text-indigo-400 font-bold">Input:</span>{" "}
+              <span className="text-slate-300">{example.input}</span>
+            </div>
+            <div>
+              <span className="text-emerald-400 font-bold">Output:</span>{" "}
+              <span className="text-slate-300">{example.output}</span>
+            </div>
+            {example.explaination && (
+              <div className="text-[11px] text-slate-400 pt-2 border-t border-slate-800/60 italic">
+                💡 {example.explaination}
+              </div>
             )}
+          </div>
+        ))}
+      </div>
+    )}
+
+    {/* Tags Section */}
+    {problem.tags && problem.tags.length > 0 && (
+      <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-800/60 mt-6">
+        {problem.tags.map((tag, index) => (
+          <span
+            key={typeof tag === "string" ? tag : index}
+            className="text-[11px] font-medium px-3 py-1 rounded-xl bg-indigo-500/10 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-500/20 transition-all"
+          >
+            #{typeof tag === "string" ? tag.trim() : tag}
+          </span>
+        ))}
+      </div>
+    )}
+  </>
+)}
+
 
             {activeLeftTab === 'submissions' && (
               <div className="space-y-3">
