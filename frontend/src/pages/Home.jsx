@@ -4,7 +4,7 @@ import axiosClient from '../../utils/axiosClient';
 import { NavLink, useNavigate } from 'react-router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { logoutUser } from "../../authSlice.js";
-import { socket } from '../../utils/Socket.jsx'; 
+import { socket } from '../../utils/Socket.js'; 
 import Navbar from './Navbar';
 import FilterSidebar from './FilterBar.jsx';
 
